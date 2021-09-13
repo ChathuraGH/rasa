@@ -11,7 +11,6 @@ import rasa.shared.utils.common
 from rasa.core.constants import DEFAULT_LOCK_LIFETIME
 from rasa.core.lock import TicketLock
 from rasa.utils.endpoints import EndpointConfig
-from rasa.tracing import trace_classmethod
 
 logger = logging.getLogger(__name__)
 
@@ -89,7 +88,6 @@ class LockStore:
         except Exception as e:
             raise LockError(f"Error while acquiring lock. Error:\n{e}")
 
-    @trace_classmethod
     @asynccontextmanager
     async def lock(
         self,

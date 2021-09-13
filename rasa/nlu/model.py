@@ -29,7 +29,6 @@ from rasa.shared.nlu.training_data.training_data import TrainingData
 from rasa.shared.nlu.training_data.message import Message
 from rasa.nlu.utils import write_json_to_file
 from rasa.utils.tensorflow.constants import EPOCHS
-from rasa.tracing import trace_method, get_tracer
 
 logger = logging.getLogger(__name__)
 
@@ -442,7 +441,6 @@ class Interpreter:
         self.model_metadata = model_metadata
         self.has_already_warned_of_overlapping_entities = False
 
-    @trace_method
     def parse(
         self,
         text: Text,
@@ -468,10 +466,8 @@ class Interpreter:
 
         message = Message(data=data, time=timestamp)
 
-        tracer = get_tracer()
         for component in self.pipeline:
-            with tracer.start_active_span(component.name, finish_on_close=True):
-                component.process(message, **self.context)
+            component.process(message, **self.context)
 
         if not self.has_already_warned_of_overlapping_entities:
             self.warn_of_overlapping_entities(message)

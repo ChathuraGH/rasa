@@ -56,7 +56,6 @@ import rasa.shared.core.trackers
 from rasa.shared.core.trackers import DialogueStateTracker, EventVerbosity
 from rasa.shared.nlu.constants import INTENT_NAME_KEY
 from rasa.utils.endpoints import EndpointConfig
-from rasa.tracing import trace_method, trace_async_method
 
 logger = logging.getLogger(__name__)
 
@@ -171,7 +170,6 @@ class MessageProcessor:
             "tracker": tracker.current_state(verbosity),
         }
 
-    @trace_async_method
     async def _update_tracker_session(
         self,
         tracker: DialogueStateTracker,
@@ -311,7 +309,6 @@ class MessageProcessor:
 
         return rasa.shared.core.trackers.get_trackers_for_conversation_sessions(tracker)
 
-    @trace_async_method
     async def log_message(
         self, message: UserMessage, should_save_tracker: bool = True
     ) -> DialogueStateTracker:
@@ -335,7 +332,6 @@ class MessageProcessor:
 
         return tracker
 
-    @trace_async_method
     async def execute_action(
         self,
         sender_id: Text,
@@ -644,7 +640,6 @@ class MessageProcessor:
             and should_predict_another_action
         )
 
-    @trace_async_method
     async def _predict_and_execute_next_action(
         self, output_channel: OutputChannel, tracker: DialogueStateTracker
     ) -> None:
@@ -759,7 +754,6 @@ class MessageProcessor:
                     ):
                         scheduler.remove_job(scheduled_job.id)
 
-    @trace_async_method
     async def _run_action(
         self,
         action: rasa.core.actions.action.Action,
@@ -903,7 +897,6 @@ class MessageProcessor:
 
         return has_expired
 
-    @trace_method
     def _save_tracker(self, tracker: DialogueStateTracker) -> None:
         self.tracker_store.save(tracker)
 

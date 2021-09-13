@@ -179,7 +179,6 @@ class AvailableEndpoints:
         )
         lock_store = read_endpoint_config(endpoint_file, endpoint_type="lock_store")
         event_broker = read_endpoint_config(endpoint_file, endpoint_type="event_broker")
-        tracing = read_endpoint_config(endpoint_file, endpoint_type="tracing")
         prometheus = read_endpoint_config(endpoint_file, endpoint_type="prometheus")
 
         return cls(
@@ -190,7 +189,6 @@ class AvailableEndpoints:
             tracker_store,
             lock_store,
             event_broker,
-            tracing,
             prometheus,
         )
 
@@ -203,7 +201,6 @@ class AvailableEndpoints:
         tracker_store: Optional[EndpointConfig] = None,
         lock_store: Optional[EndpointConfig] = None,
         event_broker: Optional[EndpointConfig] = None,
-        tracing: Optional[EndpointConfig] = None,
         prometheus: Optional[EndpointConfig] = None,
     ) -> None:
         """Init `AvailableEndpoints`."""
@@ -214,7 +211,6 @@ class AvailableEndpoints:
         self.tracker_store = tracker_store
         self.lock_store = lock_store
         self.event_broker = event_broker
-        self.tracing = tracing
         self.prometheus = prometheus
 
 

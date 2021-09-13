@@ -51,7 +51,6 @@ import rasa.shared.utils.io
 from rasa.shared.nlu.training_data.training_data import TrainingData
 from rasa.utils.endpoints import EndpointConfig
 import rasa.utils.io
-from rasa.tracing import trace_method, trace_async_method
 
 logger = logging.getLogger(__name__)
 
@@ -561,7 +560,6 @@ class Agent:
         message = UserMessage(message_data)
         return await processor.parse_message(message, tracker)
 
-    @trace_async_method
     async def handle_message(
         self,
         message: UserMessage,
@@ -837,7 +835,6 @@ class Agent:
             fontsize,
         )
 
-    @trace_method
     def create_processor(
         self, preprocessor: Optional[Callable[[Text], Text]] = None
     ) -> MessageProcessor:
