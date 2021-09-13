@@ -256,7 +256,6 @@ async def load_agent_on_start(
     _lock_store = LockStore.create(endpoints.lock_store)
 
     model_server = endpoints.model if endpoints and endpoints.model else None
-    logger.error(endpoints)
     try:
         app.agent = await agent.load_agent(
             model_path,
